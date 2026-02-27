@@ -32,7 +32,7 @@
           </div>
           <div class="field">
             <label>الاسم الكامل</label>
-            <input id="fullName" placeholder="مثال: عباس حماده"/>
+            <input id="fullName" placeholder="مثال:احمده"/>
           </div>
         </div>
 
