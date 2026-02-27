@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>لوحة التحكم</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:16px; border:1px solid rgba(255,255,255,.10)}
+    th,td{padding:10px; border-bottom:1px solid rgba(255,255,255,.08); text-align:right; vertical-align:top}
+    th{background:rgba(0,0,0,.22); color:var(--muted); font-weight:600}
+    tr:hover td{background:rgba(255,255,255,.03)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">
+        <h1>لوحة التحكم</h1>
+        <small class="muted">إعدادات + بنك الأسئلة + النتائج (بدون قاعدة بيانات)</small>
+      </div>
+      <div class="row">
+        <a class="pill" href="index.html">العودة للموقع</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>إعدادات الاختبار</h2>
+        <div class="row">
+          <div class="field">
+            <label>اسم الموقع</label>
+            <input id="siteName"/>
+          </div>
+          <div class="field">
+            <label>اسم المدرسة</label>
+            <input id="school"/>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <div class="field">
+            <label>مدة الاختبار (دقائق)</label>
+            <input id="duration" type="number" min="5"/>
+          </div>
+          <div class="field">
+            <label>إنذارات الغش قبل الإنهاء</label>
+            <input id="strikes" type="number" min="1"/>
+          </div>
+          <div class="field">
+            <label>عدد الأسئلة (لكل فصل)</label>
+            <input id="qCountSet" type="number" min="5"/>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <div class="field">
+            <label>درجة النجاح (%)</label>
+            <input id="passMark" type="number" min="0" max="100"/>
+          </div>
+          <div class="field">
+            <label>خيارات</label>
+            <div class="row" style="gap:10px">
+              <label class="pill"><input id="requireFs" type="checkbox"/> ملء الشاشة</label>
+              <label class="pill"><input id="randomize" type="checkbox"/> عشوائية</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:10px">
+          <label>قائمة الفصول (سطر لكل فصل)</label>
+          <textarea id="chapters"></textarea>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <button id="btnSaveSettings" class="btn">حفظ الإعدادات</button>
+        </div>
+        <hr/>
+        <div class="muted">ملاحظة: النتائج تُحفظ على هذا الجهاز فقط.</div>
+      </div>
+
+      <div class="card">
+        <h2>النتائج</h2>
+        <div class="row" style="justify-content:space-between">
+          <div class="pill">عدد النتائج: <b id="resCount">0</b></div>
+          <div class="row">
+            <button id="btnExportResults" class="btn2">تصدير JSON</button>
+            <button id="btnExportCSV" class="btn2">تصدير CSV</button>
+            <button id="btnClearResults" class="btnDanger">مسح النتائج</button>
+          </div>
+        </div>
+        <hr/>
+        <div style="max-height:320px; overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>الوقت</th><th>الفصل</th><th>الاسم</th><th>الصف</th><th>الرمز</th><th>الدرجة</th><th>الصحيح</th><th>المدة</th><th>إنذارات</th><th>ملاحظة</th>
+              </tr>
+            </thead>
+            <tbody id="resBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>بنك الأسئلة</h2>
+      <div class="row" style="justify-content:space-between">
+        <div class="pill">عدد الأسئلة: <b id="qCount">0</b></div>
+        <div class="row">
+          <input id="bankFile" type="file" accept=".json" />
+          <button id="btnExportBank" class="btn2">تصدير بنك الأسئلة</button>
+          <button id="btnApplyBank" class="btn">تطبيق التعديل</button>
+        </div>
+      </div>
+      <hr/>
+      <textarea id="bankJson" spellcheck="false"></textarea>
+      <div class="muted" style="margin-top:8px">
+        كل سؤال لازم يحتوي: id, chapter, prompt, options, answer
+      </div>
+    </div>
+
+    <div class="footer">لوحة التحكم</div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
